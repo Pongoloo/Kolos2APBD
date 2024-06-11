@@ -13,128 +13,127 @@ public class DatabaseContext : DbContext
     {
     }
 
-    public DbSet<Pastry> Pastries { get; set; }
-    public DbSet<Client> Clients { get; set; }
-    public DbSet<Employee> Employees { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderPastry> OrderPastries { get; set; }
+    public DbSet<Backpack> Backpacks { get; set; }
+    public DbSet<Character> Characters { get; set; }
+    public DbSet<Character_title> CharacterTitles { get; set; }
+    public DbSet<Item> Items { get; set; }
+    public DbSet<Title> Titles { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         
-        modelBuilder.Entity<Client>().HasData(new List<Client>
+        modelBuilder.Entity<Backpack>().HasData(new List<Backpack>
             {
-                new Client {
+                new Backpack
+                {
+                    CharacterId = 1,
+                    ItemId = 1,
+                    Amount = 20
+                },
+                new Backpack
+                {
+                    CharacterId = 2,
+                    ItemId = 2,
+                    Amount = 30
+                },
+                new Backpack
+                {
+                    CharacterId = 3,
+                    ItemId = 3,
+                    Amount = 40
+                },
+            });
+
+            modelBuilder.Entity<Character>().HasData(new List<Character>
+            {
+                new Character {
                     Id = 1,
                     FirstName = "Jan",
-                    LastName = "Kowalski"
+                    LastName = "Kowalski",
+                    CurrentWeight = 20,
+                    MaxWeight = 50
                 },
-                new Client {
+                new Character {
                     Id = 2,
-                    FirstName = "Anna",
-                    LastName = "Nowak"
-                }
+                    FirstName = "Janina",
+                    LastName = "Kowalska",
+                    CurrentWeight = 15,
+                    MaxWeight = 80
+                }, new Character {
+                    Id = 3,
+                    FirstName = "Joana",
+                    LastName = "Kowalska",
+                    CurrentWeight = 30,
+                    MaxWeight = 90
+                },
             });
 
-            modelBuilder.Entity<Employee>().HasData(new List<Employee>
+            modelBuilder.Entity<Title>().HasData(new List<Title>
             {
-                new Employee {
-                    Id = 1,
-                    FirstName = "Adam",
-                    LastName = "Nowak"
-                },
-                new Employee {
-                    Id = 2,
-                    FirstName = "Aleksandra",
-                    LastName = "Wiśniewska"
-                }
-            });
-
-            modelBuilder.Entity<Pastry>().HasData(new List<Pastry>
-            {
-                new Pastry
+                new Title
                 {
                     Id = 1,
-                    Name = "Drożdzówka",
-                    Price = 3.3M,
-                    Type = "A"
+                    Name = "Kozak"
                 },
-                new Pastry
+                new Title
                 {
                     Id = 2,
-                    Name = "Babka cytrynowa",
-                    Price = 21.23M,
-                    Type = "B"
+                    Name = "Kocur"
                 },
-                new Pastry
+                new Title
                 {
                     Id = 3,
-                    Name = "Jagodzianka",
-                    Price = 7.2M,
-                    Type = "A"
+                    Name = "Champion"
                 }
             });
 
-            modelBuilder.Entity<Order>().HasData(new List<Order>
+            modelBuilder.Entity<Character_title>().HasData(new List<Character_title>
             {
-                new Order
+                new Character_title
                 {
-                    Id = 1,
-                    AcceptedAt = DateTime.Parse("2024-05-28"),
-                    FulfilledAt = DateTime.Parse("2024-05-29"),
-                    Comments = "Lorem ipsum ...",
-                    ClientId = 1,
-                    EmployeeId = 2
+                   CharacterId = 1,
+                   TitleId = 1,
+                   AcquiredAt = DateTime.MinValue
                 },
-                new Order
+                new Character_title
+                {
+                    CharacterId = 2,
+                    TitleId = 2,
+                    AcquiredAt = DateTime.MaxValue
+                },
+                new Character_title
+                {
+                    CharacterId = 3,
+                    TitleId = 3,
+                    AcquiredAt = DateTime.Now
+                },
+            });
+
+            modelBuilder.Entity<Item>().HasData(new List<Item>
+            {
+                new Item
+                {
+                   Id = 1,
+                   Name = "Telefon",
+                   Weight = 10
+
+                },
+                new Item
                 {
                     Id = 2,
-                    AcceptedAt = DateTime.Parse("2024-05-31"),
-                    FulfilledAt = DateTime.Parse("2024-06-01"),
-                    Comments = "Lorem ipsum ...",
-                    ClientId = 1,
-                    EmployeeId = 1
+                    Name = "Klucze",
+                    Weight = 5
+
                 },
-                new Order
+                new Item
                 {
                     Id = 3,
-                    AcceptedAt = DateTime.Parse("2024-06-01"),
-                    FulfilledAt = null,
-                    Comments = null,
-                    ClientId = 2,
-                    EmployeeId = 1
-                }
-            });
+                    Name = "Woda",
+                    Weight = 15
 
-            modelBuilder.Entity<OrderPastry>().HasData(new List<OrderPastry>
-            {
-                new OrderPastry
-                {
-                    OrderId = 1,
-                    PastryId = 1,
-                    Amount = 3,
                 },
-                new OrderPastry
-                {
-                    OrderId = 1,
-                    PastryId = 3,
-                    Amount = 4,
-                    Comment = "Lorem ipsum ..."
-                },
-                new OrderPastry
-                {
-                    OrderId = 2,
-                    PastryId = 2,
-                    Amount = 2
-                },
-                new OrderPastry
-                {
-                    OrderId = 2,
-                    PastryId = 1,
-                    Amount = 12
-                }
             });
     }
 }

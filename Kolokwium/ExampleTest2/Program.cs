@@ -1,5 +1,6 @@
 using ExampleTest2.Data;
 using ExampleTest2.Services;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
